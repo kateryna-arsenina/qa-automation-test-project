@@ -13,6 +13,9 @@ Built as part of the **31C Claude Code Certification — Archetype C**.
 ```bash
 pip install -r requirements.txt
 export REQRES_API_KEY=<your-key>   # free at app.reqres.in/api-keys
+export TAVILY_API_KEY=<your-key>   # free at app.tavily.com
+bash scripts/install-hooks.sh      # activate pre-commit hook (once)
+make probe-all                     # generate schemas for all sources (once)
 make demo                          # transcript + full suite + HTML report
 ```
 
@@ -93,22 +96,29 @@ Requires `REQRES_API_KEY` set as a repository secret.
 
 ---
 
-## Git hooks
+## Environment variables
 
-Enforce test discipline and run unit tests before every commit:
+Set these in `~/.zshrc` before running — never commit them to the repository.
+
+| Variable | Required | Where to get it |
+|----------|----------|-----------------|
+| `REQRES_API_KEY` | Yes (reqres source) | [app.reqres.in/api-keys](https://app.reqres.in/api-keys) — free |
+| `TAVILY_API_KEY` | Yes (Tavily MCP research) | [app.tavily.com](https://app.tavily.com) — free tier available |
+| `TEST_SOURCE` | No | `reqres` (default) · `dummyjson` · `jsonplaceholder` |
 
 ```bash
-git init          # if not already a repo
-bash scripts/install-hooks.sh
+# add to ~/.zshrc
+export REQRES_API_KEY=<your-key>
+export TAVILY_API_KEY=<your-key>
 ```
 
 ---
 
-## Environment variables
+## Git hooks
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `REQRES_API_KEY` | Yes (reqres only) | Free key from app.reqres.in/api-keys |
-| `TEST_SOURCE` | No | `reqres` (default) · `dummyjson` · `jsonplaceholder` |
+Pre-commit hook runs ruff, discipline check, and unit tests before every commit.
+Install once after cloning:
 
-Store in `~/.zshrc` — never commit to the repository.
+```bash
+bash scripts/install-hooks.sh
+```
