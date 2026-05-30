@@ -51,11 +51,11 @@ Run `make probe-all` once after cloning to generate schemas for all sources.
 
 ## Test layers
 
-| Layer | Count | What it covers |
-|-------|-------|----------------|
-| Unit | 12 | Validator functions in `src/validators.py` — no network |
-| Integration | 9 | CRUD + auth endpoints — live HTTP against the active source |
-| Smoke | 3 | API reachability and response shape — fast health check |
+| Layer | What it covers |
+|-------|----------------|
+| Unit | Validator functions in `src/validators.py` — no network |
+| Integration | CRUD + auth endpoints — live HTTP against the active source |
+| Smoke | API reachability and response shape — fast health check |
 
 ---
 
