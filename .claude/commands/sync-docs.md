@@ -1,34 +1,36 @@
-Audit project documentation for gaps or stale content caused by recent code changes. Do not edit anything — report only, then ask which gaps to fix.
+# Sync Docs Skill
 
-## Step 1 — Discover what exists
+A documentation audit skill for this project.
+Invoke via `/sync-docs` to check README.md and CLAUDE.md against the current codebase.
 
-Read these files in full:
-- `README.md`
-- `CLAUDE.md`
-- `Makefile` (all targets)
-- `scripts/` (list all .py and .sh files)
-- `.claude/commands/` (list all slash commands)
-- `.github/workflows/qa.yml` (job names and steps)
+---
 
-## Step 2 — Cross-check for gaps
+## What it checks
 
-Check each documentation file against the actual project state:
+### README.md
+- Every `make <target>` in the Makefile appears in the Commands table
+- Every environment variable used in scripts or tests appears in the Environment variables table
+- The Project structure tree reflects actual files in `scripts/` and `tests/`
+- The CI description matches the actual jobs in `.github/workflows/qa.yml`
 
-**README.md**
-- Every `make <target>` in the Makefile should appear in the Commands table
-- Every environment variable used anywhere in scripts or tests should appear in the Environment variables table
-- The Project structure tree should reflect actual files in `scripts/` and `tests/`
-- The CI description should match the actual jobs in `qa.yml`
+### CLAUDE.md
+- Every `make <target>` in the Makefile appears under "Running Tests" or a relevant section
+- Every script in `scripts/` is mentioned in the Directory Layout
+- Every slash command in `.claude/commands/` is mentioned
+- Test discipline rules match what `scripts/discipline_check.py` actually enforces
 
-**CLAUDE.md**
-- Every `make <target>` in the Makefile should appear under "Running Tests" or another relevant section
-- Every script in `scripts/` should be mentioned in the Directory Layout
-- Every slash command in `.claude/commands/` should be mentioned
-- Test discipline rules should match what `scripts/discipline_check.py` actually enforces
+---
 
-## Step 3 — Report findings
+## Steps
 
-Output a checklist grouped by file:
+1. **Discover** — read `README.md`, `CLAUDE.md`, `Makefile`, list `scripts/`, list `.claude/commands/`, read `.github/workflows/qa.yml`
+2. **Cross-check** — compare each doc against the actual project files
+3. **Report** — output a checklist grouped by file, then a numbered action list of confirmed gaps
+4. **Ask** — "Fix all gaps, or pick numbers to apply selectively?"
+
+---
+
+## Output format
 
 ```
 README.md
@@ -42,9 +44,11 @@ CLAUDE.md
   ...
 ```
 
-After the checklist, list only the confirmed gaps as a numbered action list:
+Followed by:
+```
 1. Add `make matrix` to README.md Commands table
 2. Add `print_matrix.py` to CLAUDE.md Directory Layout
 ...
+```
 
-Ask: "Fix all gaps, or pick numbers to apply selectively?"
+Do not edit any files — report only, then wait for confirmation.
