@@ -65,7 +65,7 @@ Run `make probe-all` once after cloning to generate schemas for all sources.
 ## Project structure
 
 ```
-src/validators.py          # Hand-written validator functions under test
+src/validators.py          # Validator functions under test
 tests/
   unit/                    # Pure-function tests
   integration/             # HTTP tests via provider abstraction
@@ -79,7 +79,7 @@ scripts/
   discipline_check.py      # AST-based test discipline checker (PostToolUse hook)
   pre-commit               # Git pre-commit hook — install via install-hooks.sh
   install-hooks.sh         # One-time hook installer
-.github/workflows/qa.yml   # CI: smoke → full suite → dummyjson fallback
+.github/workflows/qa.yml   # CI: lint → smoke → full suite → dummyjson fallback
 ```
 
 ---
