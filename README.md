@@ -34,6 +34,12 @@ make demo                          # transcript + full suite + HTML report
 | `make smoke` | Smoke layer only |
 | `make unit` | Unit layer only (no network) |
 | `make probe-all` | Regenerate schemas for all three sources |
+| `make matrix` | Print endpoint availability matrix across all sources |
+| `make test-dummyjson` | Full suite → dummyjson.com (report in `reports/`) |
+| `make test-jsonplaceholder` | Full suite → jsonplaceholder (report in `reports/`) |
+| `make integration` | Integration layer only (no report) |
+| `make lint` | Validate `.github/workflows/qa.yml` with actionlint |
+| `make install` | Install Python dependencies from `requirements.txt` |
 | `make report-clean` | Delete all HTML reports from `reports/` |
 
 ---
@@ -77,6 +83,9 @@ tests/
 scripts/
   probe.py                 # Generate schemas from live API responses
   discipline_check.py      # AST-based test discipline checker (PostToolUse hook)
+  demo_header.py           # Print certification transcript header before test run
+  print_report_link.py     # Print report path and auto-open in browser
+  print_matrix.py          # Print endpoint availability matrix across sources
   pre-commit               # Git pre-commit hook — install via install-hooks.sh
   install-hooks.sh         # One-time hook installer
 .github/workflows/qa.yml   # CI: lint → smoke → full suite → dummyjson fallback
@@ -88,9 +97,10 @@ scripts/
 
 GitHub Actions runs on every push and pull request:
 
-1. **Smoke** — fast liveness check
-2. **Full suite** — unit + integration against reqres.in
-3. **Fallback** — integration + smoke against dummyjson if reqres.in fails
+1. **Lint** — ruff static analysis; blocks all downstream jobs on failure
+2. **Smoke** — fast liveness check
+3. **Full suite** — unit + integration against reqres.in
+4. **Fallback** — integration + smoke against dummyjson if reqres.in fails
 
 Requires `REQRES_API_KEY` set as a repository secret.
 

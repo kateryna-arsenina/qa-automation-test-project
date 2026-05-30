@@ -6,7 +6,7 @@ HTML       = --self-contained-html
 .PHONY: help \
         demo demo-dummyjson demo-jsonplaceholder demo-retry switch \
         test test-dummyjson test-jsonplaceholder smoke unit integration \
-        probe-all lint install report-clean
+        probe-all matrix lint install report-clean
 
 # ── Help ──────────────────────────────────────────────────────────────────────
 help:
@@ -22,6 +22,7 @@ help:
 	@echo ""
 	@echo "Source schemas  (refresh before switching sources)"
 	@echo "  probe-all            regenerate schemas for all three sources"
+	@echo "  matrix               print endpoint availability across all sources"
 	@echo ""
 	@echo "Run tests  (each writes a timestamped report to reports/)"
 	@echo "  test                 full suite → reqres.in"
@@ -109,6 +110,9 @@ switch:
 	esac
 
 # ── Source schemas ────────────────────────────────────────────────────────────
+matrix:
+	@python3 scripts/print_matrix.py
+
 probe-all:
 	@source ~/.zshrc 2>/dev/null; python3 scripts/probe.py
 	TEST_SOURCE=dummyjson python3 scripts/probe.py

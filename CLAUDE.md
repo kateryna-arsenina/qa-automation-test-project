@@ -45,12 +45,16 @@ scripts/
   discipline_check.py # AST-based PostToolUse hook — enforces test discipline rules
   demo_header.py     # Prints certification transcript header before test run
   print_report_link.py # Prints report path and auto-opens in browser
+  print_matrix.py    # Prints endpoint availability matrix across all sources
+  install-hooks.sh   # One-time git hook installer
   pre-commit         # Git pre-commit hook — install via scripts/install-hooks.sh
 
 .claude/
   settings.json      # PostToolUse hook: runs discipline_check.py after Write/Edit
   settings.local.json # Allowed commands (no API keys stored here)
-  commands/          # Custom slash commands
+  commands/
+    test-discipline.md  # /test-discipline — enforce AAA, naming, assertion rules
+    sync-docs.md        # /sync-docs — audit docs for gaps vs. current code
   agents/            # Custom subagents
 ```
 
@@ -82,6 +86,12 @@ make integration     # integration layer only
 
 # Refresh schemas before switching sources
 make probe-all
+
+# Endpoint availability overview
+make matrix
+
+# CI / lint
+make lint
 ```
 
 Reports land in `reports/` as `report_<source>_<YYYYMMDD_HHMMSS>.html` and auto-open in the browser.
