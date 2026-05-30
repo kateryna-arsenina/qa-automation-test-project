@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Git pre-commit hook — runs before every `git commit`.
+# Install: bash scripts/install-hooks.sh
+
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+echo ""
+echo "=== pre-commit: discipline check ==="
+python3 - <<'PYEOF'
+import sys
+from pathlib import Path
+sys.path.insert(0, ".")
+from scripts.discipline_check import check
+
+failures = 0
+for path in sorted(Path("tests").rglob("test_*.py")):
+    violations = check(str(path))
+    if violations:
+        print(f"[test-discipline] {path}: {len(violations)} violation(s):")
+        for v in violations:
+            print(v)
+        failures += 1
+    else:
+        print(f"[test-discipline] {path}: pass")
+
+if failures:
+    print(f"\n[test-discipline] {failures} file(s) with violations — fix before committing.")
+    sys.exit(1)
+PYEOF
+
+echo ""
+echo "=== pre-commit: unit tests ==="
+pytest tests/unit -q --tb=short
+
+echo ""
+echo "pre-commit checks passed."

@@ -1,0 +1,669 @@
+{
+  "users_list": {
+    "status": 200,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer"
+        },
+        "per_page": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "total_pages": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "email": {
+                "type": "string"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "avatar": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "avatar",
+              "email",
+              "first_name",
+              "id",
+              "last_name"
+            ]
+          }
+        },
+        "support": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "text",
+            "url"
+          ]
+        },
+        "_meta": {
+          "type": "object",
+          "properties": {
+            "powered_by": {
+              "type": "string"
+            },
+            "docs_url": {
+              "type": "string"
+            },
+            "upgrade_url": {
+              "type": "string"
+            },
+            "example_url": {
+              "type": "string"
+            },
+            "variant": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "cta": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "url"
+              ]
+            },
+            "context": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "context",
+            "cta",
+            "docs_url",
+            "example_url",
+            "message",
+            "powered_by",
+            "upgrade_url",
+            "variant"
+          ]
+        }
+      },
+      "required": [
+        "_meta",
+        "data",
+        "page",
+        "per_page",
+        "support",
+        "total",
+        "total_pages"
+      ]
+    },
+    "sample": {
+      "page": 2,
+      "per_page": 6,
+      "total": 12,
+      "total_pages": 2,
+      "data": [
+        {
+          "id": 7,
+          "email": "michael.lawson@reqres.in",
+          "first_name": "Michael",
+          "last_name": "Lawson",
+          "avatar": "https://reqres.in/img/faces/7-image.jpg"
+        },
+        {
+          "id": 8,
+          "email": "lindsay.ferguson@reqres.in",
+          "first_name": "Lindsay",
+          "last_name": "Ferguson",
+          "avatar": "https://reqres.in/img/faces/8-image.jpg"
+        },
+        {
+          "id": 9,
+          "email": "tobias.funke@reqres.in",
+          "first_name": "Tobias",
+          "last_name": "Funke",
+          "avatar": "https://reqres.in/img/faces/9-image.jpg"
+        },
+        {
+          "id": 10,
+          "email": "byron.fields@reqres.in",
+          "first_name": "Byron",
+          "last_name": "Fields",
+          "avatar": "https://reqres.in/img/faces/10-image.jpg"
+        },
+        {
+          "id": 11,
+          "email": "george.edwards@reqres.in",
+          "first_name": "George",
+          "last_name": "Edwards",
+          "avatar": "https://reqres.in/img/faces/11-image.jpg"
+        },
+        {
+          "id": 12,
+          "email": "rachel.howell@reqres.in",
+          "first_name": "Rachel",
+          "last_name": "Howell",
+          "avatar": "https://reqres.in/img/faces/12-image.jpg"
+        }
+      ],
+      "support": {
+        "url": "https://benhowdle.im/first-cto-playbook?utm_source=reqres&utm_medium=json&utm_campaign=referral",
+        "text": "Become a better CTO. A playbook of painful stories and practical advice from a two-time startup CTO."
+      },
+      "_meta": {
+        "powered_by": "ReqRes",
+        "docs_url": "https://app.reqres.in/documentation",
+        "upgrade_url": "https://app.reqres.in/upgrade",
+        "example_url": "https://app.reqres.in/examples/notes-app",
+        "variant": "v1_a",
+        "message": "Your data persists here. Add auth, logs, and custom schemas to build a real backend.",
+        "cta": {
+          "label": "See example app",
+          "url": "https://app.reqres.in/examples/notes-app"
+        },
+        "context": "legacy_success"
+      }
+    },
+    "available": true
+  },
+  "user_single": {
+    "status": 200,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "email": {
+              "type": "string"
+            },
+            "first_name": {
+              "type": "string"
+            },
+            "last_name": {
+              "type": "string"
+            },
+            "avatar": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "avatar",
+            "email",
+            "first_name",
+            "id",
+            "last_name"
+          ]
+        },
+        "support": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "text",
+            "url"
+          ]
+        },
+        "_meta": {
+          "type": "object",
+          "properties": {
+            "powered_by": {
+              "type": "string"
+            },
+            "docs_url": {
+              "type": "string"
+            },
+            "upgrade_url": {
+              "type": "string"
+            },
+            "example_url": {
+              "type": "string"
+            },
+            "variant": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "cta": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "url"
+              ]
+            },
+            "context": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "context",
+            "cta",
+            "docs_url",
+            "example_url",
+            "message",
+            "powered_by",
+            "upgrade_url",
+            "variant"
+          ]
+        }
+      },
+      "required": [
+        "_meta",
+        "data",
+        "support"
+      ]
+    },
+    "sample": {
+      "data": {
+        "id": 1,
+        "email": "george.bluth@reqres.in",
+        "first_name": "George",
+        "last_name": "Bluth",
+        "avatar": "https://reqres.in/img/faces/1-image.jpg"
+      },
+      "support": {
+        "url": "https://benhowdle.im/first-cto-playbook?utm_source=reqres&utm_medium=json&utm_campaign=referral",
+        "text": "Become a better CTO. A playbook of painful stories and practical advice from a two-time startup CTO."
+      },
+      "_meta": {
+        "powered_by": "ReqRes",
+        "docs_url": "https://app.reqres.in/documentation",
+        "upgrade_url": "https://app.reqres.in/upgrade",
+        "example_url": "https://app.reqres.in/examples/notes-app",
+        "variant": "v1_a",
+        "message": "Your data persists here. Add auth, logs, and custom schemas to build a real backend.",
+        "cta": {
+          "label": "See example app",
+          "url": "https://app.reqres.in/examples/notes-app"
+        },
+        "context": "legacy_success"
+      }
+    },
+    "available": true
+  },
+  "user_not_found": {
+    "status": 404,
+    "schema": {
+      "type": "object"
+    },
+    "sample": {},
+    "available": true
+  },
+  "user_create": {
+    "status": 201,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "job": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "_meta": {
+          "type": "object",
+          "properties": {
+            "powered_by": {
+              "type": "string"
+            },
+            "docs_url": {
+              "type": "string"
+            },
+            "upgrade_url": {
+              "type": "string"
+            },
+            "example_url": {
+              "type": "string"
+            },
+            "variant": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "cta": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "url"
+              ]
+            },
+            "context": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "context",
+            "cta",
+            "docs_url",
+            "example_url",
+            "message",
+            "powered_by",
+            "upgrade_url",
+            "variant"
+          ]
+        }
+      },
+      "required": [
+        "_meta",
+        "createdAt",
+        "id",
+        "job",
+        "name"
+      ]
+    },
+    "sample": {
+      "name": "morpheus",
+      "job": "leader",
+      "id": "222",
+      "createdAt": "2026-05-30T16:10:57.469Z",
+      "_meta": {
+        "powered_by": "ReqRes",
+        "docs_url": "https://app.reqres.in/documentation",
+        "upgrade_url": "https://app.reqres.in/upgrade",
+        "example_url": "https://app.reqres.in/examples/notes-app",
+        "variant": "v1_a",
+        "message": "Your data persists here. Add auth, logs, and custom schemas to build a real backend.",
+        "cta": {
+          "label": "See example app",
+          "url": "https://app.reqres.in/examples/notes-app"
+        },
+        "context": "legacy_success"
+      }
+    },
+    "available": true
+  },
+  "user_delete": {
+    "status": 204,
+    "schema": {},
+    "sample": null,
+    "available": true
+  },
+  "users_list_empty": {
+    "status": 200,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer"
+        },
+        "per_page": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "total_pages": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array"
+        },
+        "support": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "text",
+            "url"
+          ]
+        },
+        "_meta": {
+          "type": "object",
+          "properties": {
+            "powered_by": {
+              "type": "string"
+            },
+            "docs_url": {
+              "type": "string"
+            },
+            "upgrade_url": {
+              "type": "string"
+            },
+            "example_url": {
+              "type": "string"
+            },
+            "variant": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "cta": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "url"
+              ]
+            },
+            "context": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "context",
+            "cta",
+            "docs_url",
+            "example_url",
+            "message",
+            "powered_by",
+            "upgrade_url",
+            "variant"
+          ]
+        }
+      },
+      "required": [
+        "_meta",
+        "data",
+        "page",
+        "per_page",
+        "support",
+        "total",
+        "total_pages"
+      ]
+    },
+    "sample": {
+      "page": 999,
+      "per_page": 6,
+      "total": 12,
+      "total_pages": 2,
+      "data": [],
+      "support": {
+        "url": "https://benhowdle.im/first-cto-playbook?utm_source=reqres&utm_medium=json&utm_campaign=referral",
+        "text": "Become a better CTO. A playbook of painful stories and practical advice from a two-time startup CTO."
+      },
+      "_meta": {
+        "powered_by": "ReqRes",
+        "docs_url": "https://app.reqres.in/documentation",
+        "upgrade_url": "https://app.reqres.in/upgrade",
+        "example_url": "https://app.reqres.in/examples/notes-app",
+        "variant": "v1_a",
+        "message": "Your data persists here. Add auth, logs, and custom schemas to build a real backend.",
+        "cta": {
+          "label": "See example app",
+          "url": "https://app.reqres.in/examples/notes-app"
+        },
+        "context": "legacy_success"
+      }
+    },
+    "available": true
+  },
+  "register": {
+    "status": 200,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "token": {
+          "type": "string"
+        },
+        "_meta": {
+          "type": "object",
+          "properties": {
+            "powered_by": {
+              "type": "string"
+            },
+            "docs_url": {
+              "type": "string"
+            },
+            "upgrade_url": {
+              "type": "string"
+            },
+            "example_url": {
+              "type": "string"
+            },
+            "variant": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "cta": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "url"
+              ]
+            },
+            "context": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "context",
+            "cta",
+            "docs_url",
+            "example_url",
+            "message",
+            "powered_by",
+            "upgrade_url",
+            "variant"
+          ]
+        }
+      },
+      "required": [
+        "_meta",
+        "id",
+        "token"
+      ]
+    },
+    "sample": {
+      "id": 4,
+      "token": "QpwL5tke4Pnpja7X4",
+      "_meta": {
+        "powered_by": "ReqRes",
+        "docs_url": "https://app.reqres.in/documentation",
+        "upgrade_url": "https://app.reqres.in/upgrade",
+        "example_url": "https://app.reqres.in/examples/notes-app",
+        "variant": "v1_a",
+        "message": "Your data persists here. Add auth, logs, and custom schemas to build a real backend.",
+        "cta": {
+          "label": "See example app",
+          "url": "https://app.reqres.in/examples/notes-app"
+        },
+        "context": "legacy_success"
+      }
+    },
+    "available": true
+  },
+  "login_invalid": {
+    "status": 400,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "error"
+      ]
+    },
+    "sample": {
+      "error": "Missing password"
+    },
+    "available": true
+  }
+}

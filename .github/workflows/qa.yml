@@ -1,0 +1,101 @@
+# CI pipeline — runs on every push and pull_request.
+# Runner: ubuntu-24.04 (ubuntu-latest as of May 2026).
+# Source: https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+#
+# Secrets required:
+#   REQRES_API_KEY  — free key from app.reqres.in/api-keys
+#
+# If reqres.in is unavailable, the full-suite job automatically retries
+# against dummyjson. xfail tests surface the switch suggestion in the report.
+
+name: QA
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+
+  # ── 1. Smoke — fast liveness check, runs first ───────────────────────────
+  smoke:
+    name: Smoke (reqres.in)
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: Smoke test
+        env:
+          REQRES_API_KEY: ${{ secrets.REQRES_API_KEY }}
+        run: pytest tests/smoke -v --html=smoke-report.html --self-contained-html
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-report
+          path: smoke-report.html
+
+  # ── 2. Full suite against reqres.in ──────────────────────────────────────
+  full-suite:
+    name: Full suite (reqres.in)
+    runs-on: ubuntu-24.04
+    needs: smoke
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: Run all tests
+        env:
+          REQRES_API_KEY: ${{ secrets.REQRES_API_KEY }}
+        run: pytest --ignore=tests/smoke --html=report.html --self-contained-html
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-report-reqres
+          path: report.html
+
+  # ── 3. Fallback — reruns integration+smoke against dummyjson if reqres xfails ──
+  fallback-dummyjson:
+    name: Fallback (dummyjson)
+    runs-on: ubuntu-24.04
+    needs: full-suite
+    if: failure()
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: Run against dummyjson
+        env:
+          TEST_SOURCE: dummyjson
+        run: >
+          pytest tests/integration tests/smoke
+          --html=report-dummyjson.html --self-contained-html -v
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-report-dummyjson
+          path: report-dummyjson.html

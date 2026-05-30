@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+reports/
+
+# Claude Code local settings contain allowed-command history (may include env vars with secrets)
+.claude/settings.local.json
+
+# Never commit real credentials
+.env
+*.env
