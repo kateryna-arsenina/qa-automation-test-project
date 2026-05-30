@@ -8,10 +8,10 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-_log = logging.getLogger("qa.retry")
-
 from tests.providers import get_provider
 from tests.constants import SCHEMAS_DIR
+
+_log = logging.getLogger("qa.retry")
 
 
 _TRANSIENT = {429, 502}
@@ -34,8 +34,8 @@ def pytest_collection_finish(session) -> None:
 
 
 def pytest_sessionfinish(session, exitstatus) -> None:
-    active_layers = [l for l in _LAYER_MINIMUMS if _layer_counts.get(l, 0) > 0]
-    counts_str = ", ".join(f"{l}={_layer_counts.get(l, 0)}" for l in _LAYER_MINIMUMS)
+    active_layers = [layer for layer in _LAYER_MINIMUMS if _layer_counts.get(layer, 0) > 0]
+    counts_str = ", ".join(f"{layer}={_layer_counts.get(layer, 0)}" for layer in _LAYER_MINIMUMS)
 
     # Only enforce cross-layer minimums when the run spans more than one layer
     if len(active_layers) <= 1:

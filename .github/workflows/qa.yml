@@ -17,10 +17,28 @@ on:
 
 jobs:
 
+  # ── 0. Lint — fast static analysis, blocks everything else on failure ────
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: pip install ruff
+
+      - run: ruff check .
+
   # ── 1. Smoke — fast liveness check, runs first ───────────────────────────
   smoke:
     name: Smoke (reqres.in)
     runs-on: ubuntu-24.04
+    needs: lint
 
     steps:
       - uses: actions/checkout@v4
@@ -47,7 +65,7 @@ jobs:
   full-suite:
     name: Full suite (reqres.in)
     runs-on: ubuntu-24.04
-    needs: smoke
+    needs: [lint, smoke]
 
     steps:
       - uses: actions/checkout@v4

@@ -36,11 +36,14 @@ def _require_endpoint(schemas, key, source_name):
 
 @pytest.mark.parametrize("populated", [True, False], ids=["populated-page", "empty-page"])
 def test_list_users_page(http, provider, schemas, populated):
+    # Arrange
     if not populated:
         _require_endpoint(schemas, "users_list_empty", provider.name)
     params = provider.populated_page_params() if populated else provider.empty_page_params()
+    # Act
     body = _ok(http.get(provider.users_list_url(), params=params), provider.ok)
     _validate(body, schemas, "users_list" if populated else "users_list_empty")
+    # Assert
     users = provider.extract_users(body)
     assert isinstance(users, list)
     assert (len(users) >= 1) if populated else (users == [])
@@ -49,51 +52,67 @@ def test_list_users_page(http, provider, schemas, populated):
 # ── Single user ───────────────────────────────────────────────────────────────
 
 def test_get_single_user_returns_correct_id(http, provider, schemas):
+    # Arrange / Act
     body = _ok(http.get(provider.user_url(1)), provider.ok)
     _validate(body, schemas, "user_single")
+    # Assert
     assert provider.extract_user_id(body) == 1
 
 
 def test_get_single_user_has_valid_email(http, provider):
+    # Arrange / Act
     body = _ok(http.get(provider.user_url(1)), provider.ok)
+    # Assert
     assert "@" in provider.extract_email(body)
 
 
 def test_get_unknown_user_returns_not_found(http, provider):
+    # Act
     response = http.get(provider.user_url(9999))
+    # Assert
     assert response.status_code == provider.not_found
 
 
 # ── Create / Delete ───────────────────────────────────────────────────────────
 
 def test_create_user_returns_created_with_id(http, provider, schemas):
+    # Arrange / Act
     body = _ok(
         http.post(provider.create_user_url(), json=provider.create_user_payload()),
         provider.created,
     )
     _validate(body, schemas, "user_create")
+    # Assert
     assert provider.extract_created_id(body)
 
 
 def test_delete_user_returns_success(http, provider):
+    # Act
     response = http.delete(provider.user_url(2))
+    # Assert
     assert response.status_code == provider.no_content
 
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
 
 def test_register_returns_token(http, provider, schemas):
+    # Arrange
     _require_endpoint(schemas, "register", provider.name)
+    # Act
     body = _ok(http.post(provider.register_url(), json=provider.register_payload()), provider.ok)
     _validate(body, schemas, "register")
+    # Assert
     assert provider.extract_token(body)
 
 
 def test_login_invalid_payload_returns_error(http, provider, schemas):
+    # Arrange
     _require_endpoint(schemas, "login_invalid", provider.name)
+    # Act
     body = _ok(
         http.post(provider.login_url(), json=provider.login_invalid_payload()),
         provider.bad_request,
     )
     _validate(body, schemas, "login_invalid")
+    # Assert
     assert provider.extract_error(body)

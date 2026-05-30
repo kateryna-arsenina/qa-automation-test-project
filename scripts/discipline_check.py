@@ -71,7 +71,7 @@ def check(path: str) -> list[str]:
 
     for func in _test_functions(tree):
         lines = _source_lines(source, func)
-        comment_text = " ".join(l for l in lines if "#" in l).lower()
+        comment_text = " ".join(ln for ln in lines if "#" in ln).lower()
 
         # Rule 1 — AAA comments
         has_aaa = "arrange" in comment_text or "act" in comment_text or "assert" in comment_text
@@ -120,7 +120,7 @@ def main() -> None:
             print(v, flush=True)
         print("[test-discipline] run /test-discipline for fix suggestions.", flush=True)
     else:
-        print(f"[test-discipline] all rules pass.", flush=True)
+        print("[test-discipline] all rules pass.", flush=True)
 
 
 if __name__ == "__main__":

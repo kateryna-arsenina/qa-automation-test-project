@@ -30,6 +30,10 @@ if failures:
 PYEOF
 
 echo ""
+echo "=== pre-commit: lint ==="
+ruff check .
+
+echo ""
 echo "=== pre-commit: unit tests ==="
 pytest tests/unit -q --tb=short
 
